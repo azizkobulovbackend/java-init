@@ -7,9 +7,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -23,4 +21,9 @@ public class UserController {
     public User getUserInfo(@AuthenticationPrincipal User user) {
         return user;
     }
+
+        @GetMapping("/page")
+        public String getIndex() {
+            return "Hello World";
+        }
 }

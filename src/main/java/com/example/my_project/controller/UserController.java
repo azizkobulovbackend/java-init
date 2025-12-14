@@ -1,6 +1,8 @@
 package com.example.my_project.controller;
 
+import com.example.my_project.dto.UserInfoResponse;
 import com.example.my_project.model.User;
+import com.example.my_project.repository.TaskRepository;
 import com.example.my_project.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -15,15 +17,11 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "User route")
 public class UserController {
     private final UserService UserService;
+    private final TaskRepository taskRepository;
 
     @Operation(summary = "User data", security = { @SecurityRequirement(name = "bearerAuth") })
     @PostMapping("/me")
-    public User getUserInfo(@AuthenticationPrincipal User user) {
-        return user;
+    public UserInfoResponse getUserInfo(@AuthenticationPrincipal User user) {
+        return new UserInfoResponse(taskRepository.findByUser(user), user);
     }
-
-        @GetMapping("/page")
-        public String getIndex() {
-            return "Hello World";
-        }
 }
